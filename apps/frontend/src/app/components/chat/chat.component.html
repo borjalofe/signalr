@@ -1,0 +1,56 @@
+<div class="container">
+    <h2>SignalR Test</h2>
+
+    <div class="connection-status">
+      <span>Estado de la conexión: </span>
+      <span>
+        <ng-container *ngIf="connectionState$ | async as state">
+          <span [ngClass]="{
+            'text-success': state === connectionClasses['text-success'],
+            'text-warning': state === connectionClasses['text-warning'],
+            'text-danger': state === connectionClasses['text-danger']
+          }">
+            {{
+              state === connectionClasses['text-success']
+                ? 'Conectado'
+                : state === connectionClasses['text-warning']
+                ? 'Reconectando...'
+                : 'Desconectado'
+            }}
+          </span>
+        </ng-container>
+      </span>
+    </div>
+
+    <div *ngIf="(connectionState$ | async) === connectionClasses['text-danger']" class="alert alert-danger">
+      La conexión se ha perdido. Intentando reconectar...
+    </div>
+    <div *ngIf="(connectionState$ | async) === connectionClasses['text-warning']" class="alert alert-warning">
+      Reconectando...
+    </div>
+    <div *ngIf="(connectionState$ | async) === connectionClasses['text-success']" class="alert alert-success">
+      Conexión establecida.
+    </div>
+  
+    <div class="form-group">
+      <input [(ngModel)]="userName" type="text" placeholder="User name" class="form-control" />
+      <input [(ngModel)]="message" type="text" placeholder="Message" class="form-control" />
+      <button (click)="sendMessage()" class="btn btn-primary">Send Message</button>
+    </div>
+  
+    <div class="form-group">
+      <input [(ngModel)]="notificationTitle" type="text" placeholder="Notification title" class="form-control" />
+      <input [(ngModel)]="notificationContent" type="text" placeholder="Notification content" class="form-control" />
+      <button (click)="sendNotification()" class="btn btn-secondary">Send Notification</button>
+    </div>
+  
+    <ul class="list-group mt-4">
+      <li *ngFor="let message of messages$ | async" class="list-group-item">
+        {{ message.timestamp }} [{{ message.user }}]: {{ message.message }}
+      </li>
+      <li *ngFor="let notification of notifications$ | async" class="list-group-item list-group-item-info">
+        {{ notification.timestamp }} [Notification]: {{ notification.title }} - {{ notification.content }}
+      </li>
+    </ul>
+  </div>
+  

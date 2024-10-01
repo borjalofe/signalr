@@ -1,0 +1,38 @@
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 150px;
+    align-self: flex-start;
+}
+
+.list-group-item-info {
+    background-color: #e7f3fe;
+}
+
+.connection-status {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.text-success {
+  color: green;
+}
+
+.text-warning {
+  color: orange;
+}
+
+.text-danger {
+  color: red;
+}
+  
